@@ -1,7 +1,7 @@
 #include <stdio.h>
 #define SIZE 50
 
-int game(int field[][SIZE], int size, int correct_field[][SIZE], int first_row[], int first_col[], char* name_file, int raund) {
+int game(int field[][SIZE], int size, int correct_field[][SIZE], char* name_file, int raund) {
 	int choice;
 	int countString = 0;
 	int countColumn = 0;
@@ -12,19 +12,19 @@ int game(int field[][SIZE], int size, int correct_field[][SIZE], int first_row[]
 		scanf("%d", &row);
 		printf("\nВведите номер столбца -> ");
 		scanf("%d", &col);
-		field[row - 1][col - 1] = 1;
-		for (i = 0; i < size; i++) {
-			if (checkColoumn(field, size, i, first_row[i]) == 1 && checkString(field, size, i, first_col[i]) == 1) {
+		field[row][col] = 1;
+		for (i = 1; i <= size; i++) {
+			if (checkColoumn(field, size, i) == 1 && checkString(field, size, i) == 1) {
 				countColumn++; // Проверяем все столбцы поля по правилам
 				countString++; // Аналогично строки
 			}
 		}
-		if (countColumn == size && countString == size && checkTwo(row - 1, col - 1, field, size, correct_field) == 1) { 
+		if (countColumn == size && countString == size && checkTwo(row, col, field, size, correct_field) == 1) { 
 			// Если все столбцы и поля прошли проверку, а также закрашенные ячейки соответствуют правильному полю, печатаем его
-			paint(field, size, first_row, first_col);
+			paint(field, size);
 			int win = 0;
-			for (int i = 0; i < size; i++) {
-				for (int j = 0; j < size; j++) {
+			for (int i = 1; i <= size; i++) {
+				for (int j = 1; j <= size; j++) {
 					if (field[i][j] == 1) { // Считаем закрышенные пользователем клетки
 						win++;
 					}
@@ -43,7 +43,7 @@ int game(int field[][SIZE], int size, int correct_field[][SIZE], int first_row[]
 		}
 		else // Если поле не прошло проверку, убираем закрашенную ячейку и уменьшаем количество жизней
 		{
-			field[row - 1][col - 1] = 0;
+			field[row][col] = 0;
 			raund--;
 			printf("\nКоличество жизней : %d\n\n", raund);
 			if (raund == 0) { // Если жизни кончились, игра выходит в главное меню с сообщением о проигрыше

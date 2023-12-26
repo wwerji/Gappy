@@ -7,8 +7,8 @@ void record(int field[][SIZE], int size, char* name_file) {
         printf("Не удалось открыть сохраненную игру\n");
         return;
     }
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
+    for (int i = 0; i <= size; i++) {
+        for (int j = 0; j <= size; j++) {
             fprintf(file, "%d ", field[i][j]); // Записываем каждый элемент массива в файл
         }
         fprintf(file, "\n"); // Добавляем перевод строки после каждой строки массива
